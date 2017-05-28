@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.apple.parkingsaver.MainActivity">
+
+
+    <TextView
+        android:id="@+id/parkingSaverID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello world"/>
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/parkingSaverID"
+        android:text="Hello world"/>
+
+    <TextView
+        android:id="@+id/coordination"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user"
+        android:text="Hello world"/>
+
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/coordination"
+        android:text="Hello world"/>
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/startTime"
+        android:text="Hello world"/>
+    <TextView
+        android:id="@+id/ifReservition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/endTime"
+        android:text="Hello world"/>
+
+
+</RelativeLayout>
