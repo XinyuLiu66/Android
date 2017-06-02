@@ -28,6 +28,8 @@ public class Data_ParkingSaver {
             {"0:00 - 6:00", "6:00 - 8:00", "8:00 - 10:00",
                     "10:00 - 12:00", "12:00 - 14:00", "14:00 - 16:00",
                     "16:00 - 18:00", "18:00 - 21:00", "21:00 - 24:00"};
+
+    //TODO: Hier should be added, because this are the real key we set on server, the upper one is only for display on button
     private static String[] startTimeSection = new String[]{
             "timeSectionFrom0","timeSectionFrom6", "timeSectionFrom8",
             "timeSectionFrom10","timeSectionFrom12","timeSectionFrom14",
@@ -48,11 +50,10 @@ public class Data_ParkingSaver {
             Item item = new Item();
             String parkingSaverID = "ParkingSaverID: " + String.valueOf(list_totalParkingSavers.get(i).getParkingSaverID());
             item.setPs_ID(parkingSaverID);
-            //!!!!!!!!!!TODO 将parkingSaver的预定时间段改为9个元素的Array，同时
-            //!!!!!!!!!!TODO 将每个parkingSaver的ifReservation改为9个元素的Array
 
-            //TODO change hier array name to startTimeSection
+
             item.setTimeSectionFrom0(
+                    // TODO: change from timeSection[0] to startTimeSection[0], all this new object should be changed
                     new TimeSectionReservationMessage(timeSection[0],list_totalParkingSavers.get(i).getReservation_status().get(startTimeSection[0])));
            // System.out.println("0:00-6:00 reservation status = " + list_totalParkingSavers.get(i).getReservation_status().get(startTimeSection[0]));
 

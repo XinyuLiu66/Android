@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.apple.parkingsaver.R;
 import com.example.apple.parkingsaver.model.Item;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class AdapterParkingSaver extends RecyclerView.Adapter<AdapterParkingSave
     private ItemClickCallback itemClickCallback;
 
     public interface ItemClickCallback {
-      //  void onItemClick(int p);   //============可能需要九个button的
+
         void onItemClick1(int p);
         void onItemClick2(int p);
         void onItemClick3(int p);
@@ -38,11 +39,17 @@ public class AdapterParkingSaver extends RecyclerView.Adapter<AdapterParkingSave
         void onItemClick9(int p);
 
     }
+
+
     public void setItemClickCallback(final ItemClickCallback itemClickCallback) {
         this.itemClickCallback = itemClickCallback;
     }
 
-
+    //TODO: hier been added in order to add color
+    public void setListData(ArrayList<Item> exerciseList) {
+        this.listData.clear();
+        this.listData.addAll(exerciseList);
+    }
 
     public AdapterParkingSaver(List<Item> listData, Context c) {
         this.listData = listData;
@@ -61,85 +68,87 @@ public class AdapterParkingSaver extends RecyclerView.Adapter<AdapterParkingSave
     public void onBindViewHolder(ParkingSaverHolder holder, int position) {
         Item item = listData.get(position);
         holder.tv_parkingSaverID.setText(item.getPs_ID());
-//        if(item.getTimeSectionFrom0().isIfReservation() == "true") {
-//            holder.bt_Row_1_Col_1.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom0().isIfReservation() == "false") {
-//            holder.bt_Row_1_Col_1.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+
+        //TODO: hier been added in order to add color,for each button add these two if sentence
+        if(item.getTimeSectionFrom0().isIfReservation() == "true") {
+            holder.bt_Row_1_Col_1.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom0().isIfReservation() == "false") {
+            holder.bt_Row_1_Col_1.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_1_Col_1.setText(item.getTimeSectionFrom0().getTimeSection());
 
 
-//        if(item.getTimeSectionFrom6().isIfReservation() == "true") {
-//            holder.bt_Row_1_Col_2.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom6().isIfReservation() == "false") {
-//            holder.bt_Row_1_Col_2.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom6().isIfReservation() == "true") {
+            holder.bt_Row_1_Col_2.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom6().isIfReservation() == "false") {
+            holder.bt_Row_1_Col_2.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_1_Col_2.setText(item.getTimeSectionFrom6().getTimeSection());
 
 
 
-//        if(item.getTimeSectionFrom8().isIfReservation() == "true") {
-//            holder.bt_Row_1_Col_3.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom8().isIfReservation() == "false") {
-//            holder.bt_Row_1_Col_3.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom8().isIfReservation() == "true") {
+            holder.bt_Row_1_Col_3.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom8().isIfReservation() == "false") {
+            holder.bt_Row_1_Col_3.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_1_Col_3.setText(item.getTimeSectionFrom8().getTimeSection());
 
 
-//        if(item.getTimeSectionFrom10().isIfReservation() == "true") {
-//            holder.bt_Row_2_Col_1.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom10().isIfReservation() == "false") {
-//            holder.bt_Row_2_Col_1.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom10().isIfReservation() == "true") {
+            holder.bt_Row_2_Col_1.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom10().isIfReservation() == "false") {
+            holder.bt_Row_2_Col_1.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_2_Col_1.setText(item.getTimeSectionFrom10().getTimeSection());
 
 
-//        if(item.getTimeSectionFrom12().isIfReservation() == "true") {
-//            holder.bt_Row_2_Col_2.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom12().isIfReservation() == "false") {
-//            holder.bt_Row_2_Col_2.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom12().isIfReservation() == "true") {
+            holder.bt_Row_2_Col_2.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom12().isIfReservation() == "false") {
+            holder.bt_Row_2_Col_2.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_2_Col_2.setText(item.getTimeSectionFrom12().getTimeSection());
 
 
-//        if(item.getTimeSectionFrom14().isIfReservation() == "true") {
-//            holder.bt_Row_2_Col_3.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom14().isIfReservation() == "false") {
-//            holder.bt_Row_2_Col_3.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom14().isIfReservation() == "true") {
+            holder.bt_Row_2_Col_3.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom14().isIfReservation() == "false") {
+            holder.bt_Row_2_Col_3.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_2_Col_3.setText(item.getTimeSectionFrom14().getTimeSection());
 
 
-//        if(item.getTimeSectionFrom16().isIfReservation() == "true") {
-//            holder.bt_Row_3_Col_1.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom16().isIfReservation() == "false") {
-//            holder.bt_Row_3_Col_1.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom16().isIfReservation() == "true") {
+            holder.bt_Row_3_Col_1.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom16().isIfReservation() == "false") {
+            holder.bt_Row_3_Col_1.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_3_Col_1.setText(item.getTimeSectionFrom16().getTimeSection());
 
 
-//        if(item.getTimeSectionFrom18().isIfReservation() == "true") {
-//            holder.bt_Row_3_Col_2.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom18().isIfReservation() == "false") {
-//            holder.bt_Row_3_Col_2.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom18().isIfReservation() == "true") {
+            holder.bt_Row_3_Col_2.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom18().isIfReservation() == "false") {
+            holder.bt_Row_3_Col_2.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_3_Col_2.setText(item.getTimeSectionFrom18().getTimeSection());
 
 
-//        if(item.getTimeSectionFrom21().isIfReservation() == "true") {
-//            holder.bt_Row_3_Col_3.setBackgroundColor(Color.parseColor("#E43F3F"));
-//        }
-//        if(item.getTimeSectionFrom21().isIfReservation() == "false") {
-//            holder.bt_Row_3_Col_3.setBackgroundColor(Color.parseColor("#7B68EE"));
-//        }
+        if(item.getTimeSectionFrom21().isIfReservation() == "true") {
+            holder.bt_Row_3_Col_3.setBackgroundColor(Color.parseColor("#E43F3F"));
+        }
+        if(item.getTimeSectionFrom21().isIfReservation() == "false") {
+            holder.bt_Row_3_Col_3.setBackgroundColor(Color.parseColor("#7B68EE"));
+        }
         holder.bt_Row_3_Col_3.setText(item.getTimeSectionFrom21().getTimeSection());
 
 

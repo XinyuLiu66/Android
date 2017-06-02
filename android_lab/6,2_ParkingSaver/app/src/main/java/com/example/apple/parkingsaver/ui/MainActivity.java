@@ -237,19 +237,31 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     public void onItemClick1(int p) {
 
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+
+        //TODO: add to get which parking saver is been pressing now
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
-        System.out.println("ID of this parking saver's time section = " + item.getTimeSectionFrom0().getTimeSection());
-        System.out.println("=======status now======="+ item.getTimeSectionFrom0().isIfReservation() );
+//        System.out.println("ID of this parking saver's time section = " + item.getTimeSectionFrom0().getTimeSection());
+//        System.out.println("=======status now======="+ item.getTimeSectionFrom0().isIfReservation() );
         if (Boolean.valueOf(item.getTimeSectionFrom0().isIfReservation())){
+
+            //TODO: put the new change
             item.getTimeSectionFrom0().setIfReservation("false");
             putIndividualParkingSaver(psID, 0,"false");
       //      adapter = new AdapterParkingSaver(Data_ParkingSaver.getListData(),c);
        //     recView.setAdapter(adapter);
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
         }  else {
+            //TODO: put the new change
             item.getTimeSectionFrom0().setIfReservation("true");
             putIndividualParkingSaver(psID, 0,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
         }
 
@@ -259,15 +271,26 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     public void onItemClick2(int p) {
 
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+        //TODO:
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom6().isIfReservation())){
+            //TODO:
             item.getTimeSectionFrom6().setIfReservation("false");
             putIndividualParkingSaver(psID, 1,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
         }  else {
+            //TODO:
             item.getTimeSectionFrom6().setIfReservation("true");
             putIndividualParkingSaver(psID, 1,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
         }
     }
@@ -275,16 +298,27 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     @Override
     public void onItemClick3(int p) {
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+        //TODO:
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom8().isIfReservation())){
+            //TODO:
             item.getTimeSectionFrom8().setIfReservation("false");
             putIndividualParkingSaver(psID, 2,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
 
         }  else {
+            //TODO:
             item.getTimeSectionFrom8().setIfReservation("true");
             putIndividualParkingSaver(psID, 2,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
 
         }
@@ -297,13 +331,23 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom10().isIfReservation())){
+            //TODO:
             item.getTimeSectionFrom10().setIfReservation("false");
             putIndividualParkingSaver(psID, 3,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
 
         }  else {
+            //TODO:
             item.getTimeSectionFrom10().setIfReservation("true");
             putIndividualParkingSaver(psID, 3,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
 
         }
@@ -313,16 +357,27 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     @Override
     public void onItemClick5(int p) {
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+        //TODO:
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom12().isIfReservation())){
+            //TODO:
             item.getTimeSectionFrom12().setIfReservation("false");
             putIndividualParkingSaver(psID, 4,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
 
         }  else {
+            //TODO:
             item.getTimeSectionFrom12().setIfReservation("true");
             putIndividualParkingSaver(psID, 4,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
 
         }
@@ -332,16 +387,28 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     @Override
     public void onItemClick6(int p) {
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+        //TODO:
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom14().isIfReservation())){
+
+            //TODO:
             item.getTimeSectionFrom14().setIfReservation("false");
             putIndividualParkingSaver(psID, 5,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
 
         }  else {
+            //TODO:
             item.getTimeSectionFrom14().setIfReservation("true");
             putIndividualParkingSaver(psID, 5,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
 
         }
@@ -351,16 +418,27 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     @Override
     public void onItemClick7(int p) {
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+        //TODO:
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom16().isIfReservation())){
+            //TODO:
             item.getTimeSectionFrom16().setIfReservation("false");
             putIndividualParkingSaver(psID, 6,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
 
         }  else {
+            //TODO:
             item.getTimeSectionFrom16().setIfReservation("true");
             putIndividualParkingSaver(psID, 6,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
 
         }
@@ -370,16 +448,27 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     @Override
     public void onItemClick8(int p) {
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+        //TODO:
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom18().isIfReservation())){
+            //TODO:
             item.getTimeSectionFrom18().setIfReservation("false");
             putIndividualParkingSaver(psID, 7,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
 
         }  else {
+            //TODO:
             item.getTimeSectionFrom18().setIfReservation("true");
             putIndividualParkingSaver(psID, 7,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
 
         }
@@ -389,25 +478,37 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
     @Override
     public void onItemClick9(int p) {
         Item item = (Item) Data_ParkingSaver.getListData().get(p);
+        //TODO:
         String str_psID = item.getPs_ID();
         int psID = Integer.parseInt(String.valueOf(str_psID.charAt(str_psID.length()-1)));
         if (Boolean.valueOf(item.getTimeSectionFrom21().isIfReservation())){
+            //TODO:
             item.getTimeSectionFrom21().setIfReservation("false");
             putIndividualParkingSaver(psID, 8,"false");
 
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
+
 
         }  else {
+            //TODO:
             item.getTimeSectionFrom21().setIfReservation("true");
             putIndividualParkingSaver(psID, 8,"true");
+
+            //TODO: hier been added in order to add color
+            adapter.setListData((ArrayList<Item>) Data_ParkingSaver.getListData());
+            adapter.notifyDataSetChanged();
 
 
         }
 
     }
 
-     //TUDO :============Tips: after click, first: put parkingsaver information, then
 
     //=============http put method=================
+
+    //TODO: This is our put method, add
 
     void putIndividualParkingSaver(int parkingSaverID, int timeSectionTOchangeID, final String status) {
         Retrofit retrofit = new Retrofit.Builder()
@@ -459,6 +560,8 @@ public class MainActivity extends AppCompatActivity implements AdapterParkingSav
 //        Call<ServerParkingSaver> putIndividualParkingSaverCall = api.put(5,parkingSaver);
 
         //======= construct a new parkingSaver object  for post!!!!!!!!!!!!!!!!=======//
+
+
 
         putIndividualParkingSaverCall.enqueue(new Callback<ServerParkingSaver>() {
             @Override
