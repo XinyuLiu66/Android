@@ -29,9 +29,15 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.apple.liu_androidauto_parkingsaverapp.model.Server_ParkingSaver;
+import com.example.apple.liu_androidauto_parkingsaverapp.model.Server_User;
 import com.example.apple.liu_androidauto_parkingsaverapp.webService.Api_parkingSaver;
+import com.example.apple.liu_androidauto_parkingsaverapp.webService.Api_user;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -51,13 +57,13 @@ import retrofit.Response;
 public class MessageReplyReceiver extends BroadcastReceiver {
 
     private static final String TAG = MessageReplyReceiver.class.getSimpleName();
-    private MessagingFragment mf = new MessagingFragment();
+
     public static List<Server_ParkingSaver> listAllParkingSavers = new ArrayList<>();
+    public static Map<String,Integer> MapUserReservedParkingSavers = new HashMap<>();
+    RestAPI restAPI = new RestAPI();
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-        System.out.println("==================My Reply==============");
 
         if (com.example.apple.liu_androidauto_parkingsaverapp.MessagingService.REPLY_ACTION.equals(intent.getAction())) {
             int conversationId = intent.getIntExtra(com.example.apple.liu_androidauto_parkingsaverapp.MessagingService.CONVERSATION_ID, -1);
@@ -69,20 +75,35 @@ public class MessageReplyReceiver extends BroadcastReceiver {
 
                 // ===========handle this reply blocked the parking saver or unblocked the parking saver====================
                 String strReply = reply.toString();
-                System.out.println("At reply class , the status of block " + mf.isIfBlock());
-                if(mf.isIfBlock() == true) {
+
+                if(MessagingService.getFlag_indicate_block_in_service() == 0) {
+                    // ==========justify the reply String========
                  //   if(strReply.contains("yes") || strReply.contains("block")) {
-                    System.out.println("=====implement isIfBlock() == true ");
-                        getAllParkingSaver();
-                        updateParkingSaverState(5,"true");
+                    restAPI.updateParkingSaverState(3/*MessagingFragment.getPs_ID()*/,"blocked");
+//                    System.out.println("=====implement isIfBlock() == true ");
+//                        getAllParkingSaver("blocked");
+
                 //    }
                 }
-                if(mf.isIfBlock() == false) {
+                if(MessagingService.getFlag_indicate_block_in_service() == 1) {
+                    // ==========justify the reply String========
                  //   if(strReply.contains("yes") || strReply.contains("unblock")) {
-                    System.out.println("=====implement isIfBlock() == false ");
-                        getAllParkingSaver();
-                        updateParkingSaverState(5,"false");
+
+                     //   getAllParkingSaver("unblocked");
+                    restAPI.updateParkingSaverState(3/*MessagingFragment.getPs_ID()*/,"unblocked");
+
+
                  //   }
+                }
+                if(MessagingService.getFlag_indicate_block_in_service() == 2) {
+                    // ==========justify the reply String========
+                    //   if(strReply.contains("yes") || strReply.contains("unblock")) {
+
+                    //getAllParkingSaver("unblocked");
+                    restAPI.updateParkingSaverState(3/*MessagingFragment.getPs_ID()*/,"unblocked");
+
+
+                    //   }
                 }
                 // Update the notification to stop the progress spinner.
                 NotificationManagerCompat notificationManager =
@@ -115,8 +136,7 @@ public class MessageReplyReceiver extends BroadcastReceiver {
 
     //==============================REST API==========================
     //=================PUT================
-
-// TODO: (1)add dependency of retrofit (2): add data model class
+/*
     void updateParkingSaverState(int parkingSaverID,  String status) {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/Parking_saver/")
@@ -127,63 +147,36 @@ public class MessageReplyReceiver extends BroadcastReceiver {
         Server_ParkingSaver psWhichTochangeStatus = new Server_ParkingSaver();
         for(int i=0;i<listAllParkingSavers.size();i++) {
             Server_ParkingSaver ps = listAllParkingSavers.get(i);
-
             if(ps.getId() == parkingSaverID) {
                 psWhichTochangeStatus = ps;
                 break;
             }
         }
-     //   String blockedStatus = psWhichTochangeStatus.getStatus();
-       // reservationStatusOfthisPS.put(startTimeSection[timeSectionTOchangeID],status);
         psWhichTochangeStatus.setStatus(status);
-        Call<Server_ParkingSaver> putIndividualParkingSaverCall = api.updateParkingSaverStatus(parkingSaverID,psWhichTochangeStatus);
-
-
-        //======= construct a new parkingSaver object  for post!!!!!!!!!!!!!!!!=========//
-
+        Call<Server_ParkingSaver> putIndividualParkingSaverCall = api.updateParkingSaverStatus(
+                psWhichTochangeStatus.getId(),psWhichTochangeStatus);
 
 
         putIndividualParkingSaverCall.enqueue(new Callback<Server_ParkingSaver>() {
             @Override
             public void onResponse(Response<Server_ParkingSaver> response, Retrofit retrofit) {
-                System.out.println("======Callback of put !!!! also has been implemented");
 
                 Log.d("onResponse", "" + response.code() +
                         "  response body " + response.body() +
                         " responseError " + response.errorBody() + " responseMessage " +
                         response.message());
-
-                Server_ParkingSaver parkingSaver = response.body();
-                String detail  = "";
-
-                String coordination = parkingSaver.getCoordinate();
-                int    parkingSaverID = parkingSaver.getId();
-                String status = parkingSaver.getStatus();
-
-
-                detail += "ID: "+ parkingSaverID + "\n" + "Coordination: " + coordination + "\n"
-                        +"Status: " +status+  "\n\n";
-
-                System.out.println(detail);
-//                if(status == "true") {
-//                    Toast.makeText(getApplicationContext(), "Reservarion success", Toast.LENGTH_SHORT).show();
-//                }else {
-//                    Toast.makeText(getApplicationContext(), "Reservarion ended", Toast.LENGTH_SHORT).show();
-//                }
-
-
             }
 
             @Override
             public void onFailure(Throwable t) {
-           //     Toast.makeText(getApplicationContext(), "Error while fetching parkingSaver", Toast.LENGTH_SHORT).show();
+            //    Toast.makeText(getApplicationContext(), "Error while fetching parkingSaver", Toast.LENGTH_SHORT).show();
             }
 
         });
     }
 
-    //=================GET================
-    void getAllParkingSaver() {
+    //=================GET All the parking savers, but in order to get rid of asynchronous problem, call update method in this method ================
+    void getAllParkingSaver(final String status) {
       //  showpDialog();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:8080/Parking_saver/")
@@ -197,7 +190,7 @@ public class MessageReplyReceiver extends BroadcastReceiver {
 
             @Override
             public void onResponse(Response<List<Server_ParkingSaver>> response, Retrofit retrofit) {
-
+                System.out.println("!!!!!!Call get all has been implemented");
 
                 Log.d("onResponse", "" + response.code() +
                         "  response body " + response.body() +
@@ -205,7 +198,11 @@ public class MessageReplyReceiver extends BroadcastReceiver {
                         response.message());
 
                 List<Server_ParkingSaver> list_parkingSavers = response.body();
+                System.out.println("!!!!!!how many parking savers are there? " +list_parkingSavers.size());
                 listAllParkingSavers = list_parkingSavers;
+
+                //!!!!!!!!======in order to get rid of asychrounous=======
+                updateParkingSaverState(5,status);
 
 
             }
@@ -218,4 +215,58 @@ public class MessageReplyReceiver extends BroadcastReceiver {
             }
         });
     }
+
+    //=================GET reserved parking saver of this user================
+    void getUserReservedParkingSaver(*//*String username*//*) {
+        //  showpDialog();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:8080/Parking_saver/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        Api_user userApi = retrofit.create(Api_user.class);
+        Call<Map<String,Integer>> getUserReservedParkingSaverCall = userApi.getUser("huyue@gmail.com");
+
+        System.out.println("=====Call get all has been implemented");
+        getUserReservedParkingSaverCall.enqueue(new Callback<Map<String,Integer>>() {
+
+            @Override
+            public void onResponse(Response<Map<String,Integer>> response, Retrofit retrofit) {
+                System.out.println("!!!!!!Call get user resered parking saver has been implemented");
+
+                Log.d("onResponse", "" + response.code() +
+                        "  response body " + response.body() +
+                        " responseError " + response.errorBody() + " responseMessage " +
+                        response.message());
+
+                Map<String,Integer> map_UserReservedParkingSavers = response.body();
+                System.out.println("!!!!!!how many parking savers are been reseved by this user? " +map_UserReservedParkingSavers.size());
+                MapUserReservedParkingSavers = map_UserReservedParkingSavers;
+
+                //!!!!!!!!======in order to get rid of asychrounous=======
+              //  updateParkingSaverState(1,status);
+//                String detail ="";
+//                for(int id : map_UserReservedParkingSavers.values()) {
+//                    detail += id;
+//                    detail +="    ";
+
+//                }
+//                for(String time:  map_UserReservedParkingSavers.keySet()) {
+//
+//                }
+
+
+
+            }
+
+            @Override
+            public void onFailure(Throwable t) {
+                //  Toast.makeText(getApplicationContext(), "Error while fetching parkingSaver", Toast.LENGTH_SHORT).show();
+                System.out.println("======get all failure");
+
+            }
+        });
+    }*/
+
 }
+
+

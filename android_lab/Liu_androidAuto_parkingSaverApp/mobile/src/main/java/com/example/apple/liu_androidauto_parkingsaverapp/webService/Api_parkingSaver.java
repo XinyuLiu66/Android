@@ -23,15 +23,18 @@ import retrofit.http.Query;
 public interface Api_parkingSaver {
     @GET("parkingsaver")
     Call<List<Server_ParkingSaver>> getAllParkingSavers();
+ //   public List<ParkingSaverInfo> getAllParkingSavers()
 
     @GET("parkingsaver/coordination")
-    Call<String> getCoordinationInfo(@Query("id") int id);
+    Call<double[]> getCoordinationInfo(@Query("id") int id);
 
     @GET("parkingsaver/status")
-    Call<String> getReservationInfo(@Query("id") int id);
+    Call<String> getStausInfo(@Query("id") int id);
 
-    @PUT("parkingsaver/{parkingSaverID}")
-    Call<Server_ParkingSaver> updateParkingSaverStatus(@Path("parkingSaverID") int id,@Body Server_ParkingSaver parkingSaver);
+//    @PUT("parkingsaver/{parkingSaverID}")
+//    Call<Server_ParkingSaver> updateParkingSaverStatus(@Path("parkingSaverID") int id,@Body Server_ParkingSaver parkingSaver);
+@PUT("parkingsaver")
+Call<Server_ParkingSaver> updateParkingSaverStatus(@Query("id") int id ,@Body Server_ParkingSaver parkingSaver);
 }
 
 //    @PUT("change/{parkingSaverID}")

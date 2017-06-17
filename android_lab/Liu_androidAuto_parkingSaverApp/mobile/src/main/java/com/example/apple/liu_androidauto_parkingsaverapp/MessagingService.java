@@ -32,6 +32,7 @@ import android.support.v4.app.RemoteInput;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
+import java.util.Iterator;
 
 public class MessagingService extends Service {
     private static final String TAG = MessagingService.class.getSimpleName();
@@ -47,7 +48,17 @@ public class MessagingService extends Service {
     private NotificationManagerCompat mNotificationManager;
 
     private final Messenger mMessenger = new Messenger(new IncomingHandler(this));
-    private MessagingFragment mf = new MessagingFragment();
+ //   private MessagingFragment mf = new MessagingFragment();
+
+    private static int flag_indicate_block_in_service;
+
+    public static int getFlag_indicate_block_in_service() {
+        return flag_indicate_block_in_service;
+    }
+
+    public static  void setFlag_indicate_block_in_service(int flag_indicate_block_in_service) {
+        flag_indicate_block_in_service = flag_indicate_block_in_service;
+    }
 
     @Override
     public void onCreate() {
@@ -77,9 +88,9 @@ public class MessagingService extends Service {
                 .putExtra(CONVERSATION_ID, conversationId);
     }
 
-    private void sendNotification(int howManyConversations, int messagesPerConversation) {
+    private void sendNotification(int howManyConversations, int flag_indicate_block) {
         Conversations.Conversation[] conversations = Conversations.getUnreadConversations(
-                howManyConversations, messagesPerConversation);
+                howManyConversations, flag_indicate_block);
         for (Conversations.Conversation conv : conversations) {
             sendNotificationForConversation(conv);
         }
@@ -120,28 +131,31 @@ public class MessagingService extends Service {
 
         // Note: Add messages from oldest to newest to the UnreadConversation.Builder
         StringBuilder messageForNotification = new StringBuilder();
-        if(mf.isIfBlock() == true) {
-            String message = conversation.getMessages().get(0);
-            unreadConvBuilder.addMessage(message);
-            messageForNotification.append(message);
-            messageForNotification.append(EOL);
-        }else if(mf.isIfBlock() == false) {
-            String message = conversation.getMessages().get(1);
-        //    System.out.println("======warum false");
-            unreadConvBuilder.addMessage(message);
-            messageForNotification.append(message);
-            messageForNotification.append(EOL);
-
-        }
-//        for (Iterator<String> messages = conversation.getMessages().iterator();
-//             messages.hasNext(); ) {
-//            String message = messages.next();
+//        if(mf.isIfBlock() == true) {
+//            String message = conversation.getMessages().get(0);
 //            unreadConvBuilder.addMessage(message);
 //            messageForNotification.append(message);
-//            if (messages.hasNext()) {
-//                messageForNotification.append(EOL);
-//            }
+//            messageForNotification.append(EOL);
+//        }else if(mf.isIfBlock() == false) {
+//            String message = conversation.getMessages().get(1);
+//        //    System.out.println("======warum false");
+//            unreadConvBuilder.addMessage(message);
+//            messageForNotification.append(message);
+//            messageForNotification.append(EOL);
+//
 //        }
+
+        System.out.println("=====at MessagingService class, the : flag_indicate_block_in_service=" +
+                String.valueOf(flag_indicate_block_in_service));
+        for (Iterator<String> messages = conversation.getMessages().iterator();
+             messages.hasNext(); ) {
+            String message = messages.next();
+            unreadConvBuilder.addMessage(message);
+            messageForNotification.append(message);
+            if (messages.hasNext()) {
+                messageForNotification.append(EOL);
+            }
+        }
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext())
                 .setSmallIcon(R.drawable.notification_icon)
@@ -179,9 +193,10 @@ public class MessagingService extends Service {
             switch (msg.what) {
                 case MSG_SEND_NOTIFICATION:
                     int howManyConversations = msg.arg1 <= 0 ? 1 : msg.arg1;
-                    int messagesPerConversation = msg.arg2 <= 0 ? 1 : msg.arg2;
+//                    int messagesPerConversation = msg.arg2 <= 0 ? 1 : msg.arg2;
+                    flag_indicate_block_in_service = msg.arg2;
                     if (service != null) {
-                        service.sendNotification(howManyConversations, messagesPerConversation);
+                        service.sendNotification(howManyConversations, flag_indicate_block_in_service);
                     }
                     break;
                 default:

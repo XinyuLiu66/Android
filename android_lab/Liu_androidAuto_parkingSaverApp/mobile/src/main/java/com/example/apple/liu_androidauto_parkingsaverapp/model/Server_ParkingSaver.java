@@ -7,11 +7,11 @@ import com.google.gson.annotations.SerializedName;
  */
 
 public class Server_ParkingSaver {
-   // @SerializedName("coordinate")
-    private String coordinate; // later should be changed to coordination object
+  //  @SerializedName("coordination")
+    private double[] coordination; // later should be changed to coordination object
   //  @SerializedName("id")
     private int id;
-  //  @SerializedName("status")
+ //   @SerializedName("status")
     private String status;
 
 
@@ -20,12 +20,12 @@ public class Server_ParkingSaver {
 
     }
 
-    public String getCoordinate() {
-        return coordinate;
+    public double[] getCoordination() {
+        return coordination;
     }
 
-    public void setCoordinate(String coordinate) {
-        this.coordinate = coordinate;
+    public void setCoordination(double[] coordination) {
+        this.coordination = coordination;
     }
 
     public int getId() {

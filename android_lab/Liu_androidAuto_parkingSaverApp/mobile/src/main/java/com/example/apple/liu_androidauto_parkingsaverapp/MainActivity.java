@@ -17,6 +17,15 @@
 package com.example.apple.liu_androidauto_parkingsaverapp;
 
 import android.app.Activity;
+
+import java.security.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 import android.os.Bundle;
 
 public class MainActivity extends Activity {
@@ -25,10 +34,28 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new MessagingFragment())
                     .commit();
         }
     }
+
+//    public static void changeDateFormat(String time) {
+//        SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd");
+//
+//        String input = "2015-11-11" ;
+//
+//        System.out.print(input + " Parses as ");
+//
+//        Date t;
+//
+//        try {
+//            t = ft.parse(input);
+//            System.out.println(t);
+//        } catch (ParseException e) {
+//            System.out.println("Unparseable using " + ft);
+//        }
+//    }
 }

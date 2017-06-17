@@ -39,7 +39,8 @@ public class Conversations {
             "Is that project done?",
             "Did you finish the Messaging app yet?"*/
             "Do you want to block your parking saver?",
-            "Do you want to unblock your parking saver?"
+            "Do you want to unblock your parking saver?",
+            "Now,you are at the nearby of your reserved"+ "number" +String.valueOf(MessagingFragment.getPs_ID()) +"parkingsaver, Do you want to unblocked it?"
     };
 //    private static final String[] MESSAGES_unblock = new String[]{
 //            /*"Are you at home?",
@@ -113,24 +114,39 @@ public class Conversations {
     }
 
     public static Conversation[] getUnreadConversations(int howManyConversations,
-                                                        int messagesPerConversation) {
+                                                        int indicate_to_block) {
         Conversation[] conversations = new Conversation[howManyConversations];
         for (int i = 0; i < howManyConversations; i++) {
             conversations[i] = new Conversation(
-                    //TODO: dont understand
+
                     ThreadLocalRandom.current().nextInt(),
-                    name(), makeMessages(messagesPerConversation));
+                    name(), makeMessages(indicate_to_block));
         }
         return conversations;
     }
 
-    private static List<String> makeMessages(int messagesPerConversation) {
-        int maxLen = MESSAGES.length;
-        List<String> messages = new ArrayList<>(messagesPerConversation);
-        for (int i = 0; i < messagesPerConversation; i++) {
-            messages.add(MESSAGES[ThreadLocalRandom.current().nextInt(0, maxLen)]);
+//    private static List<String> makeMessages(int messagesPerConversation) {
+//        int maxLen = MESSAGES.length;
+//        List<String> messages = new ArrayList<>(messagesPerConversation);
+//        for (int i = 0; i < messagesPerConversation; i++) {
+//            messages.add(MESSAGES[ThreadLocalRandom.current().nextInt(0, maxLen)]);
+//        }
+//        return messages;
+//    }
+
+    //==========version2================
+    private static List<String> makeMessages(int indicate_to_block) {
+
+        List<String> messages = new ArrayList<>();
+        if(indicate_to_block == 0) {
+            messages.add(MESSAGES[0]);
+        }  else if (indicate_to_block ==1) {
+            messages.add(MESSAGES[1]);
+        } else if(indicate_to_block ==2) {
+            messages.add(MESSAGES[2]);
         }
-        return messages;
+        return  messages;
+
     }
 
     private static String name() {
